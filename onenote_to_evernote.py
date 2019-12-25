@@ -3,8 +3,6 @@
     @Time    : 2019/12/24 17:22
     @Author  : Chen Runwen
 """
-from typing import Optional, Any
-
 from bs4 import BeautifulSoup, Tag
 
 from evernote.api.client import EvernoteClient
@@ -12,11 +10,40 @@ from evernote.edam.notestore import NoteStore
 from evernote.edam.type.ttypes import Note
 
 
+def clean_style(style: str) -> str:
+    if style is None or len(style) == 0:
+        return ''
+    dict_style = {}
+    for item in ';'.split(style):
+        pair = ':'.split(item)
+        if len(pair) != 2:
+            continue
+        k, v = pair[0].strip(), pair[1].strip()
+        if k == 'direction' and v == 'rtl':
+            dict_style[k] = v
+        elif k == 'font-size':
+            if v[-2:] != 'pt':
+                dict_style[k] = v
+            pixel = float(v[:-2])
+            if pixel < 10 or pixel > 11:
+                dict_style[k] = v
+        elif k == 'font-family':
+            fonts = ','.split(v)
+            for font in fonts:
+                if font.strip(' \"').lower() not in ['consolas', 'microsoft yahei', 'calibri']:
+                    dict_style[k] = v
+                    break
+        # TODO 宋体
+        # TODO 文本底色span
+
+
+
 def clean_content(content: str) -> str:
     """将XML格式的笔记进行清理，改成便于编辑的格式"""
     content = content.replace('\n', '')
     soup = BeautifulSoup(content, features="html.parser")
     root: Tag = soup.find('en-note')
+    root['lang'] = 'zh-CN'
     root['style'] = 'font-family:Consolas,"Microsoft YaHei"; font-size:11.0pt'
 
     # 去除OneNote笔记的头（包括标题和创建时间）
@@ -38,12 +65,25 @@ def clean_content(content: str) -> str:
         elif len(div.contents) == 1 and div.contents[0].name == 'div':
             div.replace_with_children()
 
-    return soup.prettify()
+    # 清理div和span的属性，清理后没有属性的span直接去除
+    for tag in root.find_all(['div', 'span']):
+        attrs = tag.attrs
+        if 'lang' in attrs:
+            attrs.__delitem__('lang')
+        if 'style' in attrs:
+            attrs['style'] = clean_style(attrs['style'])
 
 
-# 这个是正式账号
-prod_token = "S=s24:U=5e7bea:E=16f5249169f:C=16f2e3c9198:P=1cd:A=en-devtoken:V=2:H=d7c679940fec0f8d7673a964fe4eb5b6"
-client = EvernoteClient(token=prod_token, service_host='app.yinxiang.com')
+    with open('data/tmp.xml', mode='w', encoding='utf-8') as f:
+        f.write(str(soup))
+
+    return str(soup)
+
+
+# 正式账号
+with open('data/prod.token', encoding='utf-8') as f:
+    token = f.read()
+client = EvernoteClient(token=token, service_host='app.yinxiang.com')
 
 # 获取笔记本
 noteStore = client.get_note_store()

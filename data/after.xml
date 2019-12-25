@@ -1,101 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd">
 <en-note>
-    <div style="direction: ltr; border-width: 100%;">
-        <div style="direction:ltr;margin-top:0in;margin-left:0in;width:6.0465in">
-            <div style="direction:ltr;margin-top:.1486in;margin-left:0in;width:6.0465in">
+    <div>
+        <ul>
+            <li>
+                <div>Word2Vec</div>
+            </li>
+            <ul>
+                <li>
+                    <div>中文词向量：https://github.com/Embedding/Chinese-Word-Vectors</div>
+                </li>
+            </ul>
+            <li>
+                <div>层</div>
+            </li>
+            <ul>
+                <li>
+                    <div>Convolutional卷积层，用卷积核遍历</div>
+                </li>
+                <li>
+                    <div>Dense全连接层</div>
+                </li>
+                <li>
+                    <div>Pooling池化层，聚合一个小池内的节点</div>
+                </li>
                 <ul>
                     <li>
-                        <div>Word2Vec</div>
+                        <div>有Max-pooling、avg-pooling等</div>
                     </li>
-                    <ul>
-                        <li>
-                            <div>中文词向量：https://github.com/Embedding/Chinese-Word-Vectors</div>
-                        </li>
-                    </ul>
-                    <li>
-                        <div>层</div>
-                    </li>
-                    <ul>
-                        <li>
-                            <div>Convolutional卷积层，用卷积核遍历</div>
-                        </li>
-                        <li>
-                            <div>Dense全连接层</div>
-                        </li>
-                        <li>
-                            <div>Pooling池化层，聚合一个小池内的节点</div>
-                        </li>
-                        <ul>
-                            <li>
-                                <div>有Max-pooling、avg-pooling等</div>
-                            </li>
-                        </ul>
-                        <li>
-                            <div>Softmax层，概率性的取最大值</div>
-                        </li>
-                        <li>
-                            <div>Embbeding层：</div>
-                        </li>
-                        <ul>
-                            <li>
-                                <div>将每一个词转化为一个向量(升维）</div>
-                            </li>
-                            <li>
-                                <div>在上下文中共现较多的词向量会比较接近</div>
-                            </li>
-                        </ul>
-                    </ul>
-                    <li>
-                        <div>学习速率</div>
-                    </li>
-                    <ul>
-                        <li>
-                            <div>三轮没有准确率的增长，可以考虑减半学习速率</div>
-                        </li>
-                        <li>
-                            <div>Adam模型默认是按迭代轮次来减少学习速率，通过decay超参控制</div>
-                        </li>
-                    </ul>
-                    <li>
-                        <div>梯度消失</div>
-                    </li>
-                    <li>
-                        <div>Softmax</div>
-                    </li>
-                    <ul>
-                        <li>
-                            <div>不是直接取max，而是大的取到的可能性较大0</div>
-                        </li>
-                        <li>
-                            <div>
-                                <en-media hash="cc1e9363cb264a4cc0ac440539d43ad4" type="image/png"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div>Loss：</div>
-                        </li>
-                        <li>
-                            <div>
-                                <en-media hash="19a66f8e1052ca2ada69c2b3a02da974"
-                                          style="box-sizing: initial; -webkit-tap-highlight-color: transparent; cursor: -webkit-zoom-in; position: relative; display: inline-block; padding: 1px; margin: 0px; vertical-align: text-bottom; box-shadow: rgb(0, 129, 194) 0px 0px 0px 1px, rgb(0, 129, 194) 0px 0px 0px 1px inset; max-width: 100%; height: auto; color: rgb(0, 0, 0); font-family: 微软雅黑; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; font-size: 14.6667px;"
-                                          type="image/png" width="175"/>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <en-media hash="304d1f81bcc6e0a00148f60548e52416" type="image/png"/>
-                            </div>
-                        </li>
-                    </ul>
                 </ul>
-                <div>
-                    <br/>
-                </div>
-            </div>
+                <li>
+                    <div>Softmax层，概率性的取最大值</div>
+                </li>
+                <li>
+                    <div>Embbeding层：</div>
+                </li>
+                <ul>
+                    <li>
+                        <div>将每一个词转化为一个向量(升维）</div>
+                    </li>
+                    <li>
+                        <div>在上下文中共现较多的词向量会比较接近</div>
+                    </li>
+                </ul>
+            </ul>
+            <li>
+                <div>学习速率</div>
+            </li>
+            <ul>
+                <li>
+                    <div>三轮没有准确率的增长，可以考虑减半学习速率</div>
+                </li>
+                <li>
+                    <div>Adam模型默认是按迭代轮次来减少学习速率，通过decay超参控制</div>
+                </li>
+            </ul>
+            <li>
+                <div>梯度消失</div>
+            </li>
+            <li>
+                <div>Softmax</div>
+            </li>
+            <ul>
+                <li>
+                    <div>不是直接取max，而是大的取到的可能性较大0</div>
+                </li>
+                <li>
+                    <div>
+                        <en-media hash="cc1e9363cb264a4cc0ac440539d43ad4" type="image/png"/>
+                    </div>
+                </li>
+                <li>
+                    <div>Loss：</div>
+                </li>
+                <li>
+                    <div>
+                        <en-media hash="19a66f8e1052ca2ada69c2b3a02da974" type="image/png" width="175"/>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <en-media hash="304d1f81bcc6e0a00148f60548e52416" type="image/png"/>
+                    </div>
+                </li>
+            </ul>
+        </ul>
+        <div>
+            <br/>
         </div>
-    </div>
-    <div>
-        <br/>
     </div>
 </en-note>
